@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像閲覧</title>
+    <style>
+      #image-container {
+          text-align: center;
+          height: 90vh; /* 画面の高さの90% */
+      }
+      img {
+          width: 100%; /* 親要素の幅に合わせて表示 */
+          height: 100%; /* 親要素の高さに合わせて表示 */
+          object-fit: contain; /* 画像を容器内に収める */
+      }
+  </style>
+</head>
+<body>
+    <input type="file" id="image-input" multiple>
+    <div id="image-container">
+        <img id="current-image" src="">
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('image-input');
+        const imageContainer = document.getElementById('image-container');
+        const currentImage = document.getElementById('current-image');
+
+        let images = [];
+        let currentImageIndex = 0;
+
+        imageInput.addEventListener('change', (event) => {
+            images = event.target.files;
+            if (images.length > 0) {
+                displayImage(0);
+            }
+        });
+
+        imageContainer.addEventListener('click', (event) => {
+            if (event.clientX > imageContainer.clientWidth / 2) {
+                // 右クリック
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+            } else {
+                // 左クリック
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            }
+            displayImage(currentImageIndex);
+        });
+
+        function displayImage(index) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                currentImage.src = e.target.result;
+            };
+            reader.readAsDataURL(images[index]);
+        }
+    </script>
+</body>
+</html>
