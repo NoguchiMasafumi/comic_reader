@@ -1,3 +1,6 @@
+Here is the modified `index.htm` file with added functionality to navigate images using the arrow keys.
+
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -46,6 +49,18 @@
                 currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
             }
             displayImage(currentImageIndex);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                // 右矢印キー
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                displayImage(currentImageIndex);
+            } else if (event.key === 'ArrowLeft') {
+                // 左矢印キー
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                displayImage(currentImageIndex);
+            }
         });
 
         function displayImage(index) {
