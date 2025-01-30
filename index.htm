@@ -17,6 +17,26 @@
     </style>
 </head>
 <body>
+    <input type="file" id="image-input" multiple><!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像閲覧</title>
+    <style>
+      #image-container {
+          text-align: center;
+          height: 90vh; /* 画面の高さの90% */
+      }
+      img {
+          width: 100%; /* 親要素の幅に合わせて表示 */
+          height: 100%; /* 親要素の高さに合わせて表示 */
+          object-fit: contain; /* 画像を容器内に収める */
+          display: none; /* 初期状態で非表示にする */
+      }
+    </style>
+</head>
+<body>
     <input type="file" id="image-input" multiple>
     <span id="file-name"></span> <!-- ファイル名表示用の要素を追加 -->
     <div id="image-container">
@@ -68,6 +88,7 @@
             fileNameSpan.textContent = fileName; // ファイル名を表示
             reader.onload = (e) => {
                 currentImage.src = e.target.result;
+                currentImage.style.display = 'block'; // 画像が読み込まれたら表示する
             };
             reader.readAsDataURL(images[index]);
         }
