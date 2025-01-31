@@ -19,7 +19,7 @@
 </head>
 <body>
     <input type="file" id="image-input" multiple>
-    <span id="file-name"></span> <!-- ファイル名表示用の要素を追加 -->
+    <span id="file-info"></span> <!-- ファイル情報表示用の要素を追加 -->
     <div id="image-container">
         <img id="current-image" src="">
     </div>
@@ -28,7 +28,7 @@
         const imageInput = document.getElementById('image-input');
         const imageContainer = document.getElementById('image-container');
         const currentImage = document.getElementById('current-image');
-        const fileNameSpan = document.getElementById('file-name'); // ファイル名表示用の要素を取得
+        const fileInfoSpan = document.getElementById('file-info'); // ファイル情報表示用の要素を取得
 
         let images = [];
         let currentImageIndex = 0;
@@ -66,7 +66,8 @@
         function displayImage(index) {
             const reader = new FileReader();
             const fileName = images[index].name; // ファイル名を取得
-            fileNameSpan.textContent = fileName; // ファイル名を表示
+            const fileInfo = `(${index + 1}/${images.length}) ${fileName}`; // ファイル情報を生成
+            fileInfoSpan.textContent = fileInfo; // ファイル情報を表示
             reader.onload = (e) => {
                 currentImage.src = e.target.result;
                 currentImage.style.display = 'block'; // 画像が読み込まれたら表示する
